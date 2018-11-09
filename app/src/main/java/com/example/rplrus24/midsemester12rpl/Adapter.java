@@ -35,6 +35,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         public  ImageView gambar;
         public Button btnklik;
         public Button btnshare;
+        public Button btnhapus;
 
         public MyViewHolder(View view) {
             super(view);
@@ -42,6 +43,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             gambar = (ImageView) view.findViewById(R.id.image1);
             btnklik = (Button) view.findViewById(R.id.btndetail);
             btnshare = (Button) view.findViewById(R.id.btnshare);
+            btnhapus = (Button)view.findViewById(R.id.btnhapus);
         }
     }
 

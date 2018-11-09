@@ -38,6 +38,10 @@ public class recyclerview extends AppCompatActivity {
     private int visibility;
     private LinearLayoutManager LinierLayoutManager;
 
+    public recyclerview(View layoutView) {
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -55,7 +59,11 @@ public class recyclerview extends AppCompatActivity {
                 editor.clear();
                 editor.apply();
                 Intent intent = new Intent(recyclerview.this, MainActivity.class);
+                startActivity(intent);
                 finish();
+            case R.id.fab:
+                Intent intent1 = new Intent(this,Favorite.class);
+                startActivity(intent1);
             default:
                 return super.onOptionsItemSelected(item);
         }

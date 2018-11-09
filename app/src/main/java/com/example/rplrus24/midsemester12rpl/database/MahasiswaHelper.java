@@ -128,7 +128,7 @@ public class MahasiswaHelper {
      * @param mahasiswaModel inputan model mahasiswa
      */
     public void insertTransaction(MahasiswaModel mahasiswaModel){
-        String sql = "INSERT INTO "+TABLE_NAME+" ("+NAMA+", "+NIM+", "+URL+") VALUES (?, ? , ? , ?)";
+        String sql = "INSERT INTO "+TABLE_NAME+" ("+NAMA+", "+NIM+", "+URL+") VALUES ( ? , ? , ?)";
         SQLiteStatement stmt = database.compileStatement(sql);
         stmt.bindString(1, mahasiswaModel.getName());
         stmt.bindString(2, mahasiswaModel.getNim());

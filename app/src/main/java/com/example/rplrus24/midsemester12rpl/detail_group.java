@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.example.rplrus24.midsemester12rpl.database.MahasiswaHelper;
@@ -50,7 +53,6 @@ public class detail_group extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_group);
-
         imageView = findViewById(R.id.img_photo);
         txtnama = findViewById(R.id.txtuser);
         tvDeskripsi = findViewById(R.id.tvDeskripsi);
@@ -81,6 +83,7 @@ public class detail_group extends AppCompatActivity {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(),"sukses",Toast.LENGTH_SHORT).show();
                     if (flag){
                         fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_add_circle_black_24dp));
                         flag = false;
@@ -109,12 +112,12 @@ public class detail_group extends AppCompatActivity {
             mahasiswaHelper.setTransactionSuccess();
             mahasiswaHelper.endTransaction();
             mahasiswaHelper.close();
+            //Toast.makeText(getApplicationContext(), "tersimpan", Toast.LENGTH_SHORT).show();
             return suksesLoad;
         }
-
         @Override
         protected void onPostExecute(Boolean suksesLoad) {
-            fab.setEnabled(false);
+            //fab.setEnabled(false);
             super.onPostExecute(suksesLoad);
         }
     }

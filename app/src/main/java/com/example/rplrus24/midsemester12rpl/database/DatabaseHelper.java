@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             " ("+_ID+" integer primary key autoincrement, " +
             NAMA+" text not null, " +
             URL+" text not null, " +
-            TANGGAL+" text not null, " +
+            TANGGAL+" text, " +
             NIM+" text not null);";
 
 
@@ -51,5 +51,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          */
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         onCreate(db);
+    }
+    public void deleteEntry(long id){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        sqLiteDatabase.delete(TABLE_NAME,_ID+"="+id,null);
+        sqLiteDatabase.execSQL("DELETE FROM"+ TABLE_NAME + "WHERE"+_ID +"=" +id + ";");
     }
 }

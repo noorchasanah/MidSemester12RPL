@@ -47,8 +47,13 @@ public class Favorite extends AppCompatActivity {
             rview.setAdapter(adapter);
             Log.d("database_failed", "onCreate:" + "Success");
 
-        }
 
+        }
+    }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        finish();
     }
 }
 

@@ -59,6 +59,13 @@
 
     </LinearLayout>
 
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:id="@+id/btnhapus"
+        android:layout_marginLeft="260dp"
+        android:text="dalete"/>
+
 </android.support.v7.widget.CardView>
 
 
