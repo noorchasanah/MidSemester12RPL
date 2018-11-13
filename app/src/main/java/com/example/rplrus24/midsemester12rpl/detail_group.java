@@ -59,7 +59,6 @@ public class detail_group extends AppCompatActivity {
         btn_trailer = findViewById(R.id.btn_trailer);
         fab = findViewById(R.id.fab);
         mahasiswaHelper = new MahasiswaHelper(detail_group.this);
-        new myfavasyntak().execute();
 
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
@@ -83,18 +82,26 @@ public class detail_group extends AppCompatActivity {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(),"sukses",Toast.LENGTH_SHORT).show();
-                    if (flag){
-                        fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_add_circle_black_24dp));
+                    Toast.makeText(getApplicationContext(), "sukses", Toast.LENGTH_SHORT).show();
+                    if (flag) {
+                        fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_add_circle_black_24dp));
+                        mahasiswaHelper.open();
+                        mahasiswaHelper.beginTransaction();
+                        MahasiswaModel mahasiswaModel = new MahasiswaModel(nama, Deskripsi, Gambar);
+                        mahasiswaHelper.insertTransaction(mahasiswaModel);
+                        mahasiswaHelper.setTransactionSuccess();
+                        mahasiswaHelper.endTransaction();
+                        mahasiswaHelper.close();
                         flag = false;
-                    }else if (!flag){
-                        fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_add_black_24dp));
+                    } else if (!flag) {
+                        fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_add_black_24dp));
                         flag = true;
                     }
                 }
             });
         }
     }
+
     @SuppressLint("StaticFieldLeak")
     public class myfavasyntak extends AsyncTask<Void, Void, Boolean> {
 
@@ -107,7 +114,7 @@ public class detail_group extends AppCompatActivity {
             Boolean suksesLoad = true;
             mahasiswaHelper.open();
             mahasiswaHelper.beginTransaction();
-            MahasiswaModel model = new MahasiswaModel(nama,Deskripsi,Gambar);
+            MahasiswaModel model = new MahasiswaModel(nama, Deskripsi, Gambar);
             mahasiswaHelper.insertTransaction(model);
             mahasiswaHelper.setTransactionSuccess();
             mahasiswaHelper.endTransaction();
@@ -115,6 +122,7 @@ public class detail_group extends AppCompatActivity {
             //Toast.makeText(getApplicationContext(), "tersimpan", Toast.LENGTH_SHORT).show();
             return suksesLoad;
         }
+
         @Override
         protected void onPostExecute(Boolean suksesLoad) {
             //fab.setEnabled(false);
@@ -122,4 +130,5 @@ public class detail_group extends AppCompatActivity {
         }
     }
 }
+
 

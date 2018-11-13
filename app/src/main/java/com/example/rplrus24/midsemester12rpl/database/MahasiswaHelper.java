@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
@@ -31,14 +32,21 @@ public class MahasiswaHelper {
     private SQLiteDatabase database;
 
     public MahasiswaHelper(Context context){
-        this.context = context;
+        dataBaseHelper = new DatabaseHelper(context);
     }
 
     public MahasiswaHelper open() throws SQLException {
-        dataBaseHelper = new DatabaseHelper(context);
         database = dataBaseHelper.getWritableDatabase();
         return this;
     }
+    public int delete(String uname) {
+        database = dataBaseHelper.getWritableDatabase();
+        String[] whereArgs = {uname};
+
+        int count = database.delete(TABLE_NAME,_ID + " = ?", whereArgs);
+        return count;
+    }
+
 
     public void close(){
         dataBaseHelper.close();
@@ -49,7 +57,8 @@ public class MahasiswaHelper {
      * @param nama nama yang dicari
      * @return NIM dari mahasiswa
      */
-    public ArrayList<MahasiswaModel> getDataByName(String nama){
+    public ArrayList<MahasiswaModel> getDataByNama(String nama){
+       // database = dataBaseHelper.getWritableDatabase();
         String result = "";
         Cursor cursor = database.query(TABLE_NAME,null,NAMA+" LIKE ?",new String[]{nama+ "%"},null,null,_ID + " ASC",null);
         cursor.moveToFirst();
@@ -58,12 +67,9 @@ public class MahasiswaHelper {
         if (cursor.getCount()>0) {
             do {
                 mahasiswaModel = new MahasiswaModel();
-                mahasiswaModel.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
                 mahasiswaModel.setName(cursor.getString(cursor.getColumnIndexOrThrow(NAMA)));
                 mahasiswaModel.setNim(cursor.getString(cursor.getColumnIndexOrThrow(NIM)));
                 mahasiswaModel.setUrl(cursor.getString(cursor.getColumnIndexOrThrow(URL)));
-                mahasiswaModel.settanggal(cursor.getString(cursor.getColumnIndexOrThrow(TANGGAL)));
-
                 arrayList.add(mahasiswaModel);
                 cursor.moveToNext();
 
@@ -79,18 +85,17 @@ public class MahasiswaHelper {
      * @return hasil query mahasiswa model di dalam arraylist
      */
     public ArrayList<MahasiswaModel> getAllData(){
+        database = dataBaseHelper.getWritableDatabase();
         Cursor cursor = database.query(TABLE_NAME,null,null,null,null,null,_ID+ " ASC",null);
         cursor.moveToFirst();
         ArrayList<MahasiswaModel> arrayList = new ArrayList<>();
         MahasiswaModel mahasiswaModel;
         if (cursor.getCount()>0) {
             do {
-                mahasiswaModel = new MahasiswaModel(Nama,Deskripsi,Gambar);
-                mahasiswaModel.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
+                mahasiswaModel = new MahasiswaModel();
                 mahasiswaModel.setName(cursor.getString(cursor.getColumnIndexOrThrow(NAMA)));
                 mahasiswaModel.setNim(cursor.getString(cursor.getColumnIndexOrThrow(NIM)));
                 mahasiswaModel.setUrl(cursor.getString(cursor.getColumnIndexOrThrow(URL)));
-                mahasiswaModel.settanggal(cursor.getString(cursor.getColumnIndexOrThrow(TANGGAL)));
                 arrayList.add(mahasiswaModel);
                 cursor.moveToNext();
 
@@ -137,6 +142,49 @@ public class MahasiswaHelper {
         stmt.clearBindings();
         Log.d("sukses", "insertTransaction: ");
     }
-    public void insertTransaction() {
+//
+//    public void insertTransaction() {
+//
+//    }
+    static class database extends SQLiteOpenHelper {
+        private static final String DATABASE_NAME = "my_movie";    // Database Name
+        private static final String TABLE_NAME = "my_table_movie";   // Table Name
+        private static final int DATABASE_Version = 1;    // Database Version
+        //private static final String UID = "_id";     // Column I (Primary Key)
+        private static final String title = "title";    //Column II
+        private static final String overview = "overview";    // Column III
+        private static final String poster_path = "poster_path";    // Column III
+        //        private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME +
+//                " (" + UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + title + "  VARCHAR(255) ," + overview + " VARCHAR(225)," + poster_path + " VARCHAR(225))";
+        private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME +
+                " (" + title + "  VARCHAR(255) PRIMARY KEY ," + overview + " VARCHAR(225)," + poster_path + " VARCHAR(225))";
+        private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+        private Context context;
+
+        public database(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_Version);
+            this.context = context;
+        }
+
+        public void onCreate(SQLiteDatabase db) {
+
+            try {
+                db.execSQL(CREATE_TABLE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            try {
+//                Message.message(context,"OnUpgrade");
+                db.execSQL(DROP_TABLE);
+                onCreate(db);
+            } catch (Exception e) {
+//                Message.message(context,""+e);
+            }
+        }
     }
+
 }

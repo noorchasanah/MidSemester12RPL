@@ -38,9 +38,6 @@ public class recyclerview extends AppCompatActivity {
     private int visibility;
     private LinearLayoutManager LinierLayoutManager;
 
-    public recyclerview(View layoutView) {
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
