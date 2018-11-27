@@ -20,7 +20,7 @@ public class keluar extends AppCompatActivity {
             startActivity(intent);
             finish();
         }else {
-            Intent intent = new Intent(keluar.this,recyclerview.class);
+            Intent intent = new Intent(keluar.this,Home.class);
             startActivity(intent);
             finish();
         }

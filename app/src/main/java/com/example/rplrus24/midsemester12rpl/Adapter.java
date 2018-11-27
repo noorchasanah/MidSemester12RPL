@@ -30,7 +30,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     Context context;
     String url = "https://image.tmdb.org/t/p/w600_and_h900_bestv2";
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
         public  ImageView gambar;
         public Button btnklik;

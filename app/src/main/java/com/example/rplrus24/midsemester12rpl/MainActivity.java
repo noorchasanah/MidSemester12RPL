@@ -1,27 +1,14 @@
 package com.example.rplrus24.midsemester12rpl;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 if (edtemail.getText().toString().equals("noor") && edtpassword.getText().toString().equals("123")) {
                     ;
                     Toast.makeText(getApplicationContext(), "berhasil login", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, recyclerview.class);
+                    Intent intent = new Intent(MainActivity.this, Home.class);
                     String username = edtemail.getText().toString();
                     sharedpreferences = getSharedPreferences("isi", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedpreferences.edit();

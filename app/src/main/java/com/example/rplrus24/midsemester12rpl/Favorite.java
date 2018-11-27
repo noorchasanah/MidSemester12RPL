@@ -24,14 +24,12 @@ public class Favorite extends AppCompatActivity {
     private RecyclerView rview;
     private ArrayList<MahasiswaModel> mahasiswaModelArrayList;
     private ModelAdapter adapter;
-  //  private TextView textdata;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
         rview = (RecyclerView) findViewById(R.id.rv_favorite);
-        //@SuppressLint("ResourceType") RecyclerView recycler = (RecyclerView) findViewById(R.layout.activity_recyclerview);
         mahasiswaHelper = new MahasiswaHelper(this);
         mahasiswaModelArrayList = new ArrayList<MahasiswaModel>();
         mahasiswaModelArrayList = mahasiswaHelper.getAllData();

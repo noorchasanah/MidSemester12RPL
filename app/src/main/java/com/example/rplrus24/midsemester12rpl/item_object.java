@@ -8,6 +8,7 @@ public class item_object {
     private String Gambar;
     private String Deskripsi;
     private String Trailer;
+    private static String PosterPath;
 
 
     public String getNama() {
@@ -42,5 +43,13 @@ public class item_object {
 
     public void setTrailer(String trailer) {
         Trailer = trailer;
+    }
+
+    public static String getPosterPath() {
+        return PosterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        PosterPath = posterPath;
     }
 }

@@ -18,10 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".recyclerview" />
+        <activity android:name=".Home" />
         <activity android:name=".Adapter" />
         <activity android:name=".detail_group" />
-        <activity android:name=".Favorite"></activity>
+        <activity android:name=".Favorite" />
     </application>
 
 </manifest>
